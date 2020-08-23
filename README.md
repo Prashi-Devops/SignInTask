@@ -1,6 +1,7 @@
 # Microservice Architecture
-The Microservice Architecture
-
+The Microservice Architecture <br/>
+ ![architect](./image/architecturepattern.png)
+ 
 # API Documnentation
 
 * **URL**
@@ -245,6 +246,6 @@ The Microservice Architecture
     
  ## POSTMAN Test Collection
  
- The Postman test collection is present [here](#https://github.com/Prashi121/DoodleBlueTask/blob/master/Postman_Collcetions/PrashanthTest.postman_collection.json)
+ The Postman test collection is present [here](https://github.com/Prashi121/DoodleBlueTask/blob/master/Postman_Collcetions/PrashanthTest.postman_collection.json) <br/>
 **Note** : Please make sure to use proper PORT number to run
-The test results is attached which run in my  ![localrun](./image/testrun.png)
+The test results is attached which run in local machine  ![localrun](./image/testrun.png)
