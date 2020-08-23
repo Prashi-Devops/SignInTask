@@ -28,8 +28,10 @@ The Microservice Architecture
         "__v": 0
     },
     "message": "prashanthblr82@gmail.com is Registered successfully"
-}
+    }
     ```
+
+**Note** : If WE CREATE A NEW USER A MAIL NOTIFICATION WILL BE SENT TO THE USER
 
 * **URL**
 
@@ -172,9 +174,9 @@ The Microservice Architecture
     "message": "User has been updated"
       }
     ```
-** Note ** : If WE CREATE A NEW USER A MAIL NOTIFICATION WILL BE SENT TO THE USER
 
-** Note ** : The Admin Users can create, modfify or delete the product deatils
+
+**Note** : The Admin Users can create, modfify or delete the product deatils
 
 * **URL**
 
@@ -244,5 +246,5 @@ The Microservice Architecture
  ## POSTMAN Test Collection
  
  The Postman test collection is present [here](#https://github.com/Prashi121/DoodleBlueTask/blob/master/Postman_Collcetions/PrashanthTest.postman_collection.json)
-** Note ** : Please make sure to use proper PORT number to run
+**Note** : Please make sure to use proper PORT number to run
 The test results is attached which run in my  ![localrun](./image/testrun.png)
