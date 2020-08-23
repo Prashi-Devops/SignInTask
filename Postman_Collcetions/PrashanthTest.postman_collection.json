@@ -1,0 +1,986 @@
+{
+	"info": {
+		"_postman_id": "8cbbed75-faae-45b9-b88c-f944ae5f2f4f",
+		"name": "PrashanthTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Basic User SignUp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "660428bf-14c0-4d73-8d2b-a9e77b89a361",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \")\r",
+							"console.log(jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.message).to.include(jsonData.data.email+\" is Registered successfully\");\r",
+							"        pm.expect(jsonData.data.password).to.not.eql(null);\r",
+							"        postman.setEnvironmentVariable(\"accessToken\", jsonData.data.accessToken);\r",
+							"        postman.setEnvironmentVariable(\"usermail\", request.data.email);\r",
+							"        postman.setEnvironmentVariable(\"userpassword\", request.data.password);\r",
+							"        postman.setEnvironmentVariable(\"userId\", jsonData.data._id);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "prashanthblr82@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "abc123",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "basic",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Basic User Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "910486af-55fc-486d-a872-fa661c62e175",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.data.role).to.eql(\"basic\")\r",
+							"        pm.expect(jsonData.message).to.include(jsonData.data.email+\" Loginned successfully\");\r",
+							"        postman.setEnvironmentVariable(\"accessToken\", jsonData.accessToken);\r",
+							"});\r",
+							"\r",
+							"pm.variables.get(\"variable_key\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{usermail}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{userpassword}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8f329b7-f6e4-4098-b9ca-8fca7caae68b",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.status).to.eql(\"error\");\r",
+							"        pm.expect(jsonData.message).to.include(\"Password is not correct\");\r",
+							"        \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "prashanthblr82@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "fdczc",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8018b665-9039-4b10-bf60-532c47e962d9",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.status).to.eql(\"error\");\r",
+							"        pm.expect(jsonData.message).to.include(\"Email does not exist\");\r",
+							"        \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "prashanth.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "abc123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the list of Basic User - Unauthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f176d624-9aae-48e6-8d0a-58d87192c66d",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.have.status(401);\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.status).to.eql(\"error\")\r",
+							"        pm.expect(jsonData.message).to.include(\"You don't have enough permission to perform this action\");\r",
+							"        \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin User SignUp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dcac7d63-cb22-4949-9b49-b32aa5608d8b",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"//console.log(request.name+\" Response: \"+jsonData);\r",
+							"console.log(request)\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.message).to.include(jsonData.data.email+\" is Registered successfully\");\r",
+							"        pm.expect(jsonData.data.password).to.not.eql(null);\r",
+							"        pm.expect(jsonData.data.role).to.eql(\"admin\")\r",
+							"        postman.setEnvironmentVariable(\"adminmail\", request.data.email);\r",
+							"        postman.setEnvironmentVariable(\"adminpassword\", request.data.password);\r",
+							"        postman.setEnvironmentVariable(\"AuserId\", jsonData.data._id);\r",
+							"        postman.setEnvironmentVariable(\"AdminaccessToken\", jsonData.data.accessToken);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "prashanthbit121@gmailcom",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "xyz321",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe7a88be-ceb9-467c-86bf-e87f747a6e53",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.data.role).to.eql(\"admin\")\r",
+							"        pm.expect(jsonData.message).to.include(jsonData.data.email+\" Loginned successfully\");\r",
+							"        postman.setEnvironmentVariable(\"AdminaccessToken\", jsonData.accessToken);\r",
+							"});\r",
+							"\r",
+							"pm.variables.get(\"variable_key\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{adminmail}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{adminpassword}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin - List all the User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f4b9e6f-97b3-4f27-91fb-447ce79b80db",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.data).to.be.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin- Get User By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "11570a0a-e4e8-4da2-bcc9-e0a6a6c1da14",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"//console.log(request.name+\" Response: \"+jsonData);\r",
+							"console.log(request)\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/user/{{AuserId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"{{AuserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the Admin User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13cfdcc0-ff48-45a4-bfe9-e1d4421f3715",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"//console.log(request.name+\" Response: \"+jsonData);\r",
+							"console.log(request)\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(function(){\r",
+							"    pm.expect(jsonData.data.status).to.eql(\"Success\");\r",
+							"    pm.expect(jsonData.data.message).to.include(\"User has been updated\");\r",
+							"    postman.setEnvironmentVariable(\"updatepassword\", jsonData.data.password);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "{{adminmail}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "dzdcze",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:4000/user/{{AuserId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"{{AuserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1699c22c-9750-4919-9dd2-ebccfc11b76c",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"//console.log(request.name+\" Response: \"+jsonData);\r",
+							"console.log(request)\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.message).to.include(\"Product created successfully successfully\");\r",
+							"        postman.setEnvironmentVariable(\"productId\", jsonData.data._id);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "color",
+							"value": "black",
+							"type": "text"
+						},
+						{
+							"key": "username1",
+							"value": "prashanthbit1@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "13e1",
+							"type": "text"
+						},
+						{
+							"key": "details",
+							"value": "fdcdc",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Prashanth",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "{{AuserId}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the ProductLists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea112444-0ee7-4a8c-a5ba-46a2b322c3ab",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.status).to.eql(\"Success\")\r",
+							"        pm.expect(jsonData.data).to.be.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the ProductList by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3115d194-d541-478f-afb6-6bd4c901a977",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.status).to.eql(\"Success\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/products/{{productId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"products",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the Product List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "152fa56a-cece-42cf-80fd-afbca14808b3",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.status).to.eql(\"Success\")\r",
+							"        pm.expect(jsonData.message).to.include(\"Product is been updated Successfully\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "details",
+							"value": "djkasjx;kwx",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "POP",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "{{AuserId}}",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "2000",
+							"type": "text"
+						},
+						{
+							"key": "color",
+							"value": "red",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/products/{{productId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"products",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the Product List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "76d8bb4c-c60a-407c-a804-a14bae115370",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"console.log(request.name+\" Response: \"+jsonData);\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(\"Assertion Validation\",function(){\r",
+							"        pm.expect(jsonData.status).to.eql(\"Success\")\r",
+							"        pm.expect(jsonData.message).to.include(\"Product is been deleted Successfully\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/products/{{productId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"products",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the Basic User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f0cda08-30de-4a0c-8e93-0b18806adc3b",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"//console.log(request.name+\" Response: \"+jsonData);\r",
+							"console.log(request)\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(function(){\r",
+							"    pm.expect(jsonData.data.status).to.eql(\"Success\");\r",
+							"    pm.expect(jsonData.data.message).to.include(\"User has been deleted\");\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/user/{{userId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the Admin User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d17d28d2-25ac-4ed7-9140-5ed1a21cfa29",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"//console.log(request.name+\" Response: \"+jsonData);\r",
+							"console.log(request)\r",
+							"pm.test(request.name+\" General Response Check\", function () { \r",
+							"        pm.response.to.be.ok;\r",
+							"        pm.response.to.be.json;\r",
+							"});\r",
+							"pm.test(function(){\r",
+							"    pm.expect(jsonData.data.status).to.eql(\"Success\");\r",
+							"    pm.expect(jsonData.data.message).to.include(\"User has been deleted\");\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{AdminaccessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/user/{{AuserId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"user",
+						"{{AuserId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
