@@ -5,8 +5,8 @@ const bcrypt = require('bcrypt');
 const { roles } = require('../role')
 var nodemailer = require('nodemailer');
 const { reject } = require('bcrypt/promises');
-var username = 'prashanthbit121@gmail.com';
-var password = 'owxeaxnfggzeedrv'
+var username = 'SENDER_MAIL';
+var password = 'SENDER_PASSWORD'
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
