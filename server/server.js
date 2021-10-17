@@ -19,7 +19,7 @@ mongoose
  .then(() => {
   console.log('Connected to the Database successfully');
  });
-
+//Body parser
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(async (req, res, next) => {
