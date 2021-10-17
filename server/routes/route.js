@@ -25,3 +25,5 @@ router.put('/products/:productId', userController.allowIfLoggedin, userControlle
 router.delete('/products/:productId', userController.allowIfLoggedin, userController.grantAccess('deleteAny', 'profile'), userController.productlistDelete);
 
 module.exports = router;
+
+//
